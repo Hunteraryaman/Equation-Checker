@@ -1,0 +1,127 @@
+import java.util.*;
+class CheckEquation
+{
+    public static void main(String Args[])
+    {
+        Scanner in=new Scanner (System.in);
+        System.out.println("Enter the Equation");
+        String eqn =in.nextLine();
+        int c=0,c1=0,c2=0,a=0,cnt=0;
+        for(int i=0;i<eqn.length();i++)
+        {
+            if (eqn.charAt(i)=='(')
+            {
+                c++;
+                
+                for(int j=i+1;j<eqn.indexOf(')');j++)
+                    if(eqn.charAt(j)=='{'||eqn.charAt(j)=='[')
+                        cnt++;
+            }
+            if(eqn.charAt(i)=='{')
+            {
+                c1++;
+                for(int j=i+1;j<eqn.indexOf('}');j++)
+                    if(eqn.charAt(j)=='[')
+                        cnt++;
+            }
+            if(eqn.charAt(i)=='[')
+                c2++;
+        }
+        if (c>0)
+        {
+            a=0;
+            for (int j=0;j<eqn.length();j++)
+            {
+                if (eqn.charAt(j)==')')
+                {
+                    a++;
+                }
+            }
+            if(c!=a)
+                cnt++;
+        }
+        if (c1>0)
+        {
+            a=0;
+            for (int j=0;j<eqn.length();j++)
+            {
+                if (eqn.charAt(j)=='}')
+                {
+                    a++;
+                }
+            }
+            if(c1!=a)
+                cnt++;
+        }
+        if (c2>0)
+        {
+            a=0;
+            for (int j=0;j<eqn.length();j++)
+            {
+                if (eqn.charAt(j)==']')
+                {
+                    a++;
+                }
+            }
+            if(c2!=a)
+                cnt++;
+        }
+        for(int i=0;i<eqn.length();i++)
+        {
+            if (eqn.charAt(i)=='+')
+            {
+                if(eqn.length()<3)
+                    if(eqn.charAt(0)=='+'||eqn.charAt(eqn.length()-1)=='+')
+                        cnt++;
+                if(eqn.length()>3)
+                    if(eqn.charAt(0)=='+'&&eqn.charAt(1)!='+'||eqn.charAt(eqn.length()-1)=='+'&&eqn.charAt(eqn.length()-2)!='+')
+                        cnt++;
+                if(eqn.length()>3)
+                {   
+                    if(eqn.charAt(i-1)==')'&&eqn.charAt(i+1)!='('||eqn.charAt(i-1)!=')'&&eqn.charAt(i+1)=='(')
+                        cnt++;
+                    else if (eqn.charAt(i-1)=='/'||eqn.charAt(i-1)=='-'||eqn.charAt(i-1)=='*'||eqn.charAt(i+1)=='/'||eqn.charAt(i+1)=='-'||eqn.charAt(i+1)=='*')
+                        cnt++;
+                }
+            }
+            if (eqn.charAt(i)=='-')
+            {
+                if(eqn.length()<3)
+                    if(eqn.charAt(0)=='-'||eqn.charAt(eqn.length()-1)=='-')
+                       cnt++;
+                if(eqn.length()>3)
+                    if(eqn.charAt(0)=='-'&&eqn.charAt(1)!='-'||eqn.charAt(eqn.length()-1)=='-'&&eqn.charAt(eqn.length()-2)!='-')
+                        cnt++;
+                if(eqn.length()>3)
+                { 
+                    if(eqn.charAt(i-1)==')'&&eqn.charAt(i+1)!='('||eqn.charAt(i-1)!=')'&&eqn.charAt(i+1)=='(')
+                        cnt++;
+                    else if (eqn.charAt(i-1)=='/'||eqn.charAt(i-1)=='+'||eqn.charAt(i-1)=='*'||eqn.charAt(i+1)=='/'||eqn.charAt(i+1)=='+'||eqn.charAt(i+1)=='*')
+                        cnt++;
+                }
+            }
+            if (eqn.charAt(i)=='*')
+            {
+                if(eqn.charAt(0)=='*'||eqn.charAt(eqn.length()-1)=='*')
+                    cnt++;
+                if (eqn.charAt(i-1)=='/'||eqn.charAt(i-1)=='+'||eqn.charAt(i-1)=='-'||eqn.charAt(i-1)=='*'||eqn.charAt(i+1)=='/'||eqn.charAt(i+1)=='+'||eqn.charAt(i+1)=='-'||eqn.charAt(i+1)=='*')
+                    cnt++;
+                if(eqn.charAt(i-1)=='('||eqn.charAt(i+1)==')'||eqn.charAt(i-1)=='{'||eqn.charAt(i+1)=='}'||eqn.charAt(i-1)=='['||eqn.charAt(i+1)==']')
+                   cnt++;
+            }
+            if (eqn.charAt(i)=='/')
+            {
+                if(eqn.charAt(0)=='/'||eqn.charAt(eqn.length()-1)=='/')
+                    cnt++;
+                if (eqn.charAt(i-1)=='/'||eqn.charAt(i-1)=='+'||eqn.charAt(i-1)=='-'||eqn.charAt(i-1)=='*'||eqn.charAt(i+1)=='/'||eqn.charAt(i+1)=='+'||eqn.charAt(i+1)=='-'||eqn.charAt(i+1)=='*')
+                    cnt++;
+                if(eqn.charAt(i-1)=='('||eqn.charAt(i+1)==')'||eqn.charAt(i-1)=='{'||eqn.charAt(i+1)=='}'||eqn.charAt(i-1)=='['||eqn.charAt(i+1)==']')
+                    cnt++;
+            }
+        }
+        if (cnt==0)
+        System.out.println("The Expression is correct");
+        else
+        System.out.println("The Expression is not Correct");
+    }
+}
